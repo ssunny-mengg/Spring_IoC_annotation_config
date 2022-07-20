@@ -14,6 +14,7 @@ import java.util.Scanner;
 @Primary
 public class DataSourceFile implements DataSource {
 
+    @Value("${filename}")
     private String filename;
 
     /**

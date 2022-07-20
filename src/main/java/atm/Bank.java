@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.Map;
 
 /**
@@ -12,8 +13,10 @@ import java.util.Map;
 @Component
 public class Bank {
 
+   @Value("${bankname}")
    private String name;
    private Map<Integer,Customer> customers;
+   @Autowired
    private DataSource dataSource;
 
    /**
@@ -43,5 +46,7 @@ public class Bank {
    public Customer findCustomer(int id) {
       return customers.get(id);
    }
+   @PostConstruct
+   public void initCustomerData() {this.customers = dataSource.readCustomers();   }
 }
 
